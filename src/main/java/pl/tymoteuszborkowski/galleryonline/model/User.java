@@ -1,14 +1,20 @@
 package pl.tymoteuszborkowski.galleryonline.model;
 
-import java.util.List;
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "user_id")
     private int id;
+
     private String name;
     private String password;
-    private List<Photo> uploadedPhotos;
+    private String email;
 
     public int getId() {
         return id;
@@ -34,12 +40,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Photo> getUploadedPhotos() {
-        return uploadedPhotos;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUploadedPhotos(List<Photo> uploadedPhotos) {
-        this.uploadedPhotos = uploadedPhotos;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -50,12 +56,12 @@ public class User {
         return id == user.id &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(uploadedPhotos, user.uploadedPhotos);
+                Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, password, uploadedPhotos);
+        return Objects.hash(id, name, password, email);
     }
 }

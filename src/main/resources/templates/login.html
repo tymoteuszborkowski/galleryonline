@@ -56,10 +56,10 @@
          style="background-image: url('https://www.farmcatmedia.com/wp-content/uploads/2015/10/Nigh-sky-1.jpg')">
         <div class="login-page">
             <div class="form">
-                <form class="register-form">
-                    <input type="text" placeholder="nazwa użytkownika"/>
-                    <input type="password" placeholder="hasło"/>
-                    <input type="text" placeholder="adres email"/>
+                <form class="register-form" th:action="@{/register}" th:object="${user}" method="post">
+                    <input type="text" th:field="*{name}" placeholder="nazwa użytkownika"/>
+                    <input type="password" th:field="*{password}" placeholder="hasło"/>
+                    <input type="text" th:field="*{email}" placeholder="adres email"/>
                     <button>utwórz</button>
                     <p class="message">Posiadasz już konto? <a href="#">Zaloguj się</a></p>
                 </form>
