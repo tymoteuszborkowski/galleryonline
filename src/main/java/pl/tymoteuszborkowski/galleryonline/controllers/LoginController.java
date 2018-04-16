@@ -3,14 +3,11 @@ package pl.tymoteuszborkowski.galleryonline.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import pl.tymoteuszborkowski.galleryonline.model.User;
 import pl.tymoteuszborkowski.galleryonline.services.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -31,17 +28,31 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerUser(ModelAndView modelAndView,
-                                     @Valid User user) {
+    public String registerUser(@Valid User user, Model model) {
 
+        model.addAttribute("dupa", "dupa");
         Optional<User> userOptional = Optional.ofNullable(userService.findByEmail(user.getEmail()));
         if (!userOptional.isPresent()) {
             userService.saveUser(user);
+            return "redirect:/register/successful";
         } else {
-            modelAndView.addObject("alreadyRegisteredMessage", "Użytkownik o podanym adresie email już istnieje.");
+            return "redirect:/register/exists/";
         }
+    }
 
+    @RequestMapping(value = "/register/successful")
+    public String showSuccessfulRegisterMessage(Model model) {
+        model.addAttribute(new User());
+        model.addAttribute("registrationMessage", "Dziękuję za zarejestrowanie się.");
         return "login";
     }
+
+    @RequestMapping(value = "/register/exists")
+    public String showUserExistsMessage(Model model) {
+        model.addAttribute(new User());
+        model.addAttribute("registrationMessage", "Użytkownik o podanym adresie email już istnieje, zaloguj się.");
+        return "login";
+    }
+
 
 }
