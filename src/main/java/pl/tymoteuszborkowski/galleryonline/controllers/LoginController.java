@@ -11,6 +11,9 @@ import pl.tymoteuszborkowski.galleryonline.services.UserService;
 import javax.validation.Valid;
 import java.util.Optional;
 
+import static pl.tymoteuszborkowski.galleryonline.constants.FrontentMessages.SUCCESSFUL_REGISTRATION_MESSAGE;
+import static pl.tymoteuszborkowski.galleryonline.constants.FrontentMessages.USER_WITH_EMAIL_EXISTS;
+
 @Controller
 public class LoginController {
 
@@ -43,14 +46,14 @@ public class LoginController {
     @RequestMapping(value = "/register/successful")
     public String showSuccessfulRegisterMessage(Model model) {
         model.addAttribute(new User());
-        model.addAttribute("registrationMessage", "Dziękuję za zarejestrowanie się.");
+        model.addAttribute("registrationMessage", SUCCESSFUL_REGISTRATION_MESSAGE);
         return "login";
     }
 
     @RequestMapping(value = "/register/exists")
     public String showUserExistsMessage(Model model) {
         model.addAttribute(new User());
-        model.addAttribute("registrationMessage", "Użytkownik o podanym adresie email już istnieje, zaloguj się.");
+        model.addAttribute("registrationMessage", USER_WITH_EMAIL_EXISTS);
         return "login";
     }
 
