@@ -32,8 +32,7 @@ public class LoginController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(@Valid User user, Model model) {
-
-        model.addAttribute("dupa", "dupa");
+        
         Optional<User> userOptional = Optional.ofNullable(userService.findByEmail(user.getEmail()));
         if (!userOptional.isPresent()) {
             userService.saveUser(user);

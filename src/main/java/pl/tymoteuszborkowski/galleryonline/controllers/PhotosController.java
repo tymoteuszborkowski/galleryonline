@@ -1,10 +1,12 @@
 package pl.tymoteuszborkowski.galleryonline.controllers;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.tymoteuszborkowski.galleryonline.model.User;
 
 import static pl.tymoteuszborkowski.galleryonline.constants.FrontentMessages.UPLOAD_LOGIN_MESSAGE;
 
@@ -15,20 +17,21 @@ public class PhotosController {
     public String accessUploadPage() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication.isAuthenticated()) {
-            return "redirect:/upload";
-        } else {
+        if (authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/upload/login";
+        } else {
+            return "redirect:/upload";
         }
     }
 
     @RequestMapping("/upload")
-    public String showUploadPage() {
+    public String showUploadForm() {
         return "upload";
     }
 
     @RequestMapping("/upload/login")
     public String showLoginPageBeforeUpload(Model model) {
+        model.addAttribute("user", new User());
         model.addAttribute("uploadLoginMessage", UPLOAD_LOGIN_MESSAGE);
         return "login";
     }
