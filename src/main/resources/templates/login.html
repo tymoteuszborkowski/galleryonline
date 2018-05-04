@@ -57,19 +57,21 @@
         <div class="login-page">
             <div class="form">
                 <form class="register-form" th:action="@{/register}" th:object="${user}" method="post">
-                    <input type="text" th:field="*{name}" placeholder="nazwa użytkownika"/>
-                    <input type="password" th:field="*{password}" placeholder="hasło"/>
-                    <input type="text" th:field="*{email}" placeholder="adres email"/>
+                    <input type="text" id="username" th:field="*{name}" placeholder="nazwa użytkownika"/>
+                    <input type="password" id="password" th:field="*{password}" placeholder="hasło"/>
+                    <input type="text"  id="email" th:field="*{email}" placeholder="adres email"/>
                     <button>utwórz</button>
                     <p class="message">Posiadasz już konto? <a href="#">Zaloguj się</a></p>
                 </form>
-                <form class="login-form">
-                    <input type="text" placeholder="nazwa użytkownika"/>
-                    <input type="password" placeholder="hasło"/>
-                    <button>zaloguj się</button>
+                <form class="login-form" th:action="@{/login}" method="post">
+                    <input type="text" name="username" placeholder="email"/>
+                    <input type="password" name="password" placeholder="hasło"/>
+                    <button type="submit" >zaloguj się</button>
                     <p class="message">Nie jesteś zarejestrowany? <a href="#">Utwórz konto</a></p>
                 </form>
 
+
+                <p th:text="${loginMessage}"></p>
                 <p th:text="${registrationMessage}"></p>
                 <p th:text="${uploadLoginMessage}"></p>
             </div>
