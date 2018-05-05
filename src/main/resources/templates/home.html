@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
 
 <head>
@@ -54,8 +54,11 @@
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active" style="background-image: url('https://www.farmcatmedia.com/wp-content/uploads/2015/10/Nigh-sky-1.jpg')">
                 <div class="carousel-caption d-none d-md-block">
-                    <h3>Drogi użytkowniku!</h3>
-                    <p>Zaloguj się, aby zobaczyć udostępnione zdjęcia.</p>
+                    <div sec:authorize="!hasRole('ROLE_USER')">
+                        <h3>Drogi użytkowniku!</h3>
+                        <p>Zaloguj się, aby zobaczyć udostępnione zdjęcia.</p>
+                    </div>
+
                 </div>
             </div>
         </div>
