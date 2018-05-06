@@ -54,13 +54,18 @@
 <header>
     <div class="carousel-item active"
          style="background-image: url('https://www.farmcatmedia.com/wp-content/uploads/2015/10/Nigh-sky-1.jpg')">
+        <div class="login-page">
             <div class="form">
-                <form method="POST" th:action="@{/upload}" enctype="multipart/form-data">
-                    Udostępnij zdjęcie: <input type="file" name="file"><br />
-                    <input type="submit" value="Upload"> Udostępnij
+                <form method="POST" th:action="@{/perform_upload}" enctype="multipart/form-data">
+                    Udostępnij zdjęcie: <input type="file" accept="image/*" name="photo"><br/>
+                    <button type="submit">Udostępnij</button>
                 </form>
+
+                <p th:text="${uploadMessage}"></p>
             </div>
+
         </div>
+    </div>
 </header>
 
 <!-- Footer -->
