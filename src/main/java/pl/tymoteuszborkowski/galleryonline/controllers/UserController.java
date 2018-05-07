@@ -16,14 +16,14 @@ import java.util.Optional;
 import static pl.tymoteuszborkowski.galleryonline.constants.FrontentMessages.*;
 
 @Controller
-public class LoginController {
+public class UserController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public LoginController(UserService userService,
-                           PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService,
+                          PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }

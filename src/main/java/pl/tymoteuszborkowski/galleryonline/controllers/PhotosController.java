@@ -46,7 +46,11 @@ public class PhotosController {
     }
 
     @RequestMapping("/upload")
-    public String showUploadForm() {
+    public String showUploadForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        User loggedUser = userPrincipal.getUser();
+        model.addAttribute("loggedUser", "Witaj, " + loggedUser.getName());
         return "upload";
     }
 
@@ -82,7 +86,7 @@ public class PhotosController {
             return "upload";
         }
 
-        Photo uploadedPhoto = new Photo(loggedUserId, "/"+generatedPhotoPath);
+        Photo uploadedPhoto = new Photo(loggedUserId, "/" + generatedPhotoPath);
         photoRepository.save(uploadedPhoto);
         model.addAttribute("uploadMessage", CORRECT_UPLOAD);
 

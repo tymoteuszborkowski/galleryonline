@@ -42,10 +42,14 @@
                     <a class="nav-link" th:href="@{/access/upload}">Udostępnij zdjęcie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/login}">Zaloguj się</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/about}">O projekcie</a>
+                    <div sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">Zaloguj się</a>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" id="logoutForm" method="POST">
+                            <a class="nav-link" id="logoutLink" href="#">Wyloguj się</a>
+                        </form>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -70,7 +74,7 @@
     <div sec:authorize="isAuthenticated()">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active" th:style="'background:url(' + ${firstPhoto.path} + ');'">
+                <div class="carousel-item active" th:style="'background:url(' + ${firstPhoto?.path} + ');'">
                 </div>
                 <div class="carousel-item" th:each="photo:${photos}"
                      th:style="'background:url(' + ${photo.path} + ');'">
@@ -99,6 +103,11 @@
 <!-- Bootstrap core JavaScript -->
 <script th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js"></script>
 <script th:src="@{/js/bootstrap.bundle.min.js}" src="../static/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("logoutLink").onclick = function () {
+        document.getElementById("logoutForm").submit();
+    }
+</script>
 
 </body>
 
